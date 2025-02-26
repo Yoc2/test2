@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jawahar Lal Nehru College Student Portal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+</head>
+
+<body>
+  <section class="main" style="background-image: url('{{ url_for('static', filename='images/hero-bg.png') }}');">
+    <nav>
+      <a href="#" class="logo">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="College Logo">
+      </a>
+      <ul class="menu">
+        <li>
+          <a href="{{ url_for('enrolled_students') }}">Enrolled Students</a>
+          <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+        </li>
+      </ul>
+    </nav>
+    
+    <a href="/search" class="main-login">Search Student Info</a>
+
+    <!-- Welcome Message -->
+    <h1>Welcome, {{ session['instructor_name'] if 'instructor_name' in session else 'Guest' }}</h1>
+
+    <!-- Main Content -->
+    <div class="home-content">
+      <div class="home-text">
+        <h3>Welcome to the Jawahar Lal Nehru College Student Portal!</h3>
+        <h1>Your Journey Starts Here</h1>
+        <p>
+          Whether you're an admin, instructor, or student, we're excited to have you here! 
+          This portal is designed to enhance your academic experience and facilitate smooth communication. 
+          Explore resources, track your progress, and connect with peers and faculty for a fulfilling educational journey.
+        </p>
+      </div>
+
+      <div class="home-img">
+        <img src="{{ url_for('static', filename='images/c.png') }}" alt="College Image">
+      </div>
+    </div>
+
+    <!-- Instructors Section -->
+    <div class="instructors-section">
+      <h2 class="instructors-title">Our Instructors</h2>
+      <ul class="instructor-list">
+        {% for instructor in instructors %}
+        <li class="instructor-item">
+          <a href="{{ url_for('instructor_info', instructor_id=instructor.instructor_id) }}" class="instructor-name">
+            {{ instructor.first_name }} {{ instructor.last_name }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+  </section>
+</body>
+</html>
+  
